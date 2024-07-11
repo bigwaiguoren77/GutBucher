@@ -2,7 +2,7 @@ package com.alura_oracle_one.GutBucher.services;
 
 import com.alura_oracle_one.GutBucher.repositories.AuthorRepository;
 import com.alura_oracle_one.GutBucher.repositories.BookRepository;
-import com.alura_oracle_one.GutBucher.utils.GutendexClient;
+import com.alura_oracle_one.GutBucher.utils.GutBucherKunde;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.alura_oracle_one.GutBucher.models.Author;
@@ -30,13 +30,13 @@ public class BookService {
     private AuthorRepository authorRepository;
 
     @Autowired
-    private GutendexClient gutendexClient;
+    private GutBucherKunde gutBucherKunde;
 
     public Book getBookByTitle(String title) {
         Book book = bookRepository.findByTitle(title);
         if (book == null) {
             try {
-                JsonNode bookJson = gutendexClient.getBookByTitle(title);
+                JsonNode bookJson = gutBucherKunde.getBookByTitle(title);
                 if (bookJson != null) {
                     book = new ObjectMapper().treeToValue(bookJson, Book.class);
                     Author author = new ObjectMapper().treeToValue(bookJson.path("authors").get(0), Author.class);
