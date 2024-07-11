@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 @Component
-public class GutendexClient {
+public class GutBucherKunde {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
